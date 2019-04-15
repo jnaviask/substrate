@@ -270,6 +270,14 @@ decl_module! {
 			result.map(|_| ())
 		}
 
+		fn set_storage(origin) {
+			let trie_id = substrate_primitives::storage::well_known_keys::CHILD_STORAGE_KEY_PREFIX.iter()
+				.chain(b"foo")
+				.cloned()
+				.collect::<Vec<_>>();
+			srml_support::storage::child::put_raw(&trie_id, b"foo", b"foo");
+		}
+
 		/// Makes a call to an account, optionally transferring some balance.
 		///
 		/// * If the account is a smart-contract account, the associated code will be
